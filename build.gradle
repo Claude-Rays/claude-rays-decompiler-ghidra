@@ -1,0 +1,37 @@
+// Builds a Ghidra Extension for ghidra_12.1.4_PUBLIC
+
+def ghidraInstallDir
+
+if (System.env.GHIDRA_INSTALL_DIR) {
+    ghidraInstallDir = System.env.GHIDRA_INSTALL_DIR
+}
+else if (project.hasProperty("GHIDRA_INSTALL_DIR")) {
+    ghidraInstallDir = project.getProperty("GHIDRA_INSTALL_DIR")
+}
+else {
+    throw new GradleException("GHIDRA_INSTALL_DIR is not set. Point it to your Ghidra installation, e.g.\n" +
+        "  set GHIDRA_INSTALL_DIR=C:\\path\\to\\ghidra_12.1.4_PUBLIC\n" +
+        "or pass -PGHIDRA_INSTALL_DIR=<path> to gradle.")
+}
+
+// cmd keeps the quotes of 'set GHIDRA_INSTALL_DIR="C:\..."' in the value
+ghidraInstallDir = ghidraInstallDir.trim().replaceAll('^"|"$', '')
+
+if (!new File(ghidraInstallDir, "support/buildExtension.gradle").exists()) {
+    throw new GradleException("GHIDRA_INSTALL_DIR=" + ghidraInstallDir +
+        " does not look like a Ghidra installation (support/buildExtension.gradle not found).")
+}
+
+apply from: new File(ghidraInstallDir).getCanonicalPath() + "/support/buildExtension.gradle"
+
+task distributeExtension {
+    group = "Ghidra"
+    dependsOn ':buildExtension'
+}
+
+// Gson comes with Ghidra (Framework/Generic/lib): nothing to bundle.
+// The README screenshots (GIFs of several MB) are not needed in the extension zip.
+buildExtension {
+    exclude '**/screenshots/**'
+    exclude 'gradle/**'
+}
