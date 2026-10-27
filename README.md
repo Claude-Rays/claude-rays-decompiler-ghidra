@@ -4,7 +4,7 @@
 
 ![Decompile, analyze and patch a function](screenshots/decompile-analyze-patch.gif)
 
-> **Note:** So far the extension has only been tested on Windows, with Ghidra 12.1.4. The GUI was tested on x86/x64 binaries; the instruction facts of the other processors were checked headless on small ARM, AArch64, MIPS, RISC-V and PowerPC functions.
+> **Note:** So far the extension has only been tested on Windows, with Ghidra 12.1.4 and 12.2. The GUI was tested on x86/x64 binaries; the instruction facts of the other processors were checked headless on small ARM, AArch64, MIPS, RISC-V and PowerPC functions.
 
 It is the sibling of [Claude-Rays Decompiler for IDA Free/Pro](https://github.com/Claude-Rays/claude-rays-decompiler-idafree), with the same validation, cache, security review and fixes. The difference is the input: in IDA Free there is no decompiler a plugin can use, so the IDA plugin works from the disassembly alone; in Ghidra the decompiler is always there, so this extension also gives Claude its C. It is also the engine behind *Claude diff pseudo-code* in [Diaphora-ng for Ghidra](https://github.com/Claude-Rays/diaphora-ng-ghidra).
 
@@ -57,18 +57,18 @@ The three commands on `GetZoneFromAlternateDataStreamEx` of urlmon.dll (October 
 
 ## Requirements
 
-- Ghidra 12.1.4+ and the JDK it runs on (21+; tested with 25).
+- Ghidra 12.2+ and the JDK it runs on (25+).
 - [Claude Code](https://claude.com/claude-code), installed and logged in (run `claude`, then `/login`). Tested with CLI 2.1.301.
 - A Claude subscription (Pro/Max) or pay-as-you-go API billing. No API key is stored by the extension: it runs the `claude` CLI, which uses your own login.
 
 ## Build & install
 
 ```bat
-set GHIDRA_INSTALL_DIR=C:\path\to\ghidra_12.1.4_PUBLIC
+set GHIDRA_INSTALL_DIR=C:\path\to\ghidra_12.2_PUBLIC
 gradlew.bat buildExtension
 ```
 
-The Gradle wrapper downloads Gradle the first time. The extension zip lands in `dist\` (`ghidra_12.1.4_PUBLIC_<date>_clauderays-ghidra.zip`).
+The Gradle wrapper downloads Gradle the first time. The extension zip lands in `dist\` (`ghidra_12.2_PUBLIC_<date>_clauderays-ghidra.zip`).
 
 To install it: in the Ghidra project window, *File > Install Extensions*, **+**, pick the zip, and restart Ghidra. In the CodeBrowser, enable **ClaudeRaysPlugin** when Ghidra offers the new plugins, or in *File > Configure* (package *Claude-Rays Decompiler*). The console shows `Claude-Rays Decompiler for Ghidra <version> by ClaudeMonkey (...)` when it loads.
 

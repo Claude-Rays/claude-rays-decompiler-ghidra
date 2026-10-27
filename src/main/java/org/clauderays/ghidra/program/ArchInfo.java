@@ -70,7 +70,8 @@ final class ArchInfo {
                 DoubleDataType.dataType };
             for (DataType dt : results) {
                 try {
-                    VariableStorage vs = model.getReturnLocation(dt, program);
+                    // element 0 is the return storage
+                    VariableStorage vs = model.getStorageLocations(program, new DataType[] { dt }, false, false)[0];
                     if (vs != null && (vs.isRegisterStorage() || vs.isCompoundStorage())) {
                         for (Register r : vs.getRegisters()) {
                             if (r != null) {

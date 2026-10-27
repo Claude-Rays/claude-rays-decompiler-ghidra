@@ -1,4 +1,4 @@
-// Builds a Ghidra Extension for ghidra_12.1.4_PUBLIC
+// Builds a Ghidra Extension for ghidra_12.2_PUBLIC
 
 def ghidraInstallDir
 
@@ -10,7 +10,7 @@ else if (project.hasProperty("GHIDRA_INSTALL_DIR")) {
 }
 else {
     throw new GradleException("GHIDRA_INSTALL_DIR is not set. Point it to your Ghidra installation, e.g.\n" +
-        "  set GHIDRA_INSTALL_DIR=C:\\path\\to\\ghidra_12.1.4_PUBLIC\n" +
+        "  set GHIDRA_INSTALL_DIR=C:\\path\\to\\ghidra_12.2_PUBLIC\n" +
         "or pass -PGHIDRA_INSTALL_DIR=<path> to gradle.")
 }
 
